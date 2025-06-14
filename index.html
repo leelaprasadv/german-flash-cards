@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>German Flash Cards - Learn German</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="app">
+        <header class="header">
+            <h1><i class="fas fa-graduation-cap"></i> German Flash Cards</h1>
+            <p>Master German vocabulary with interactive flash cards</p>
+        </header>
+
+        <nav class="mode-selector">
+            <button class="mode-btn active" data-mode="de-en">
+                <i class="fas fa-flag"></i>
+                German → English
+            </button>
+            <button class="mode-btn" data-mode="en-de">
+                <i class="fas fa-flag-usa"></i>
+                English → German
+            </button>
+        </nav>
+
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+            <span class="progress-text">1 / 20</span>
+        </div>
+
+        <div class="flashcard-container">
+            <div class="flashcard" id="flashcard">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">
+                        <div class="card-content">
+                            <div class="word">der Hund</div>
+                            <div class="pronunciation">[deːɐ̯ hʊnt]</div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i>
+                                Tap to reveal
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flashcard-back">
+                        <div class="card-content">
+                            <div class="translation">the dog</div>
+                            <div class="meaning">A domesticated carnivorous mammal</div>
+                            <div class="gender-info">
+                                <span class="gender">m</span>
+                                <span class="gender-reason">Living beings are often masculine</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button class="control-btn" id="prevBtn">
+                <i class="fas fa-chevron-left"></i>
+                Previous
+            </button>
+            <button class="control-btn flip-btn" id="flipBtn">
+                <i class="fas fa-sync-alt"></i>
+                Flip Card
+            </button>
+            <button class="control-btn" id="nextBtn">
+                Next
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+
+    </div>
+
+    <!-- Floating Hamburger Menu Button -->
+    <button class="hamburger-btn" id="hamburgerBtn">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Side Menu -->
+    <div class="side-menu" id="sideMenu">
+        <div class="side-menu-header">
+            <h2><i class="fas fa-graduation-cap"></i> Menu</h2>
+            <button class="close-btn" id="closeMenuBtn">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <nav class="side-menu-nav">
+            <a href="#" class="menu-item active" data-page="flashcards">
+                <i class="fas fa-layer-group"></i>
+                Flash Cards
+            </a>
+            <a href="#" class="menu-item" data-page="instructions">
+                <i class="fas fa-info-circle"></i>
+                How to Use
+            </a>
+            <a href="#" class="menu-item" data-page="legend">
+                <i class="fas fa-bookmark"></i>
+                Legend
+            </a>
+            <div class="menu-parent">
+                <a href="#" class="menu-item menu-toggle" data-page="genders">
+                    <i class="fas fa-language"></i>
+                    German Genders
+                    <i class="fas fa-chevron-down submenu-arrow"></i>
+                </a>
+                <div class="submenu">
+                    <a href="#" class="menu-item submenu-item" data-page="maskulin">
+                        <i class="fas fa-mars" style="color: #3b82f6;"></i>
+                        Maskulin (der)
+                    </a>
+                    <a href="#" class="menu-item submenu-item" data-page="neutrum">
+                        <i class="fas fa-genderless" style="color: #10b981;"></i>
+                        Neutrum (das)
+                    </a>
+                    <a href="#" class="menu-item submenu-item" data-page="feminin">
+                        <i class="fas fa-venus" style="color: #ec4899;"></i>
+                        Feminin (die)
+                    </a>
+                </div>
+            </div>
+            <a href="#" class="menu-item" data-page="about">
+                <i class="fas fa-heart"></i>
+                About
+            </a>
+        </nav>
+    </div>
+
+    <!-- Menu Overlay -->
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <!-- Instructions Page (Hidden by default) -->
+    <div class="page instructions-page" id="instructionsPage">
+        <div class="page-content">
+            <button class="back-btn" data-page="flashcards">
+                <i class="fas fa-arrow-left"></i>
+                <span>Back to Flash Cards</span>
+            </button>
+            <h2><i class="fas fa-info-circle"></i> How to Use</h2>
+            
+            <div class="instruction-section">
+                <h3><i class="fas fa-keyboard"></i> Navigation</h3>
+                <ul>
+                    <li><strong>Next/Previous:</strong> Use arrow keys (←/→) or swipe left/right on mobile</li>
+                    <li><strong>Flip card:</strong> Click/tap the card, press Enter or Space</li>
+                    <li><strong>Switch modes:</strong> Toggle between German→English and English→German</li>
+                </ul>
+            </div>
+
+            <div class="instruction-section">
+                <h3><i class="fas fa-lightbulb"></i> Learning Tips</h3>
+                <ul>
+                    <li><strong>Start with German→English</strong> mode to learn word recognition</li>
+                    <li><strong>Switch to English→German</strong> mode to practice recall</li>
+                    <li><strong>Pay attention to genders</strong> (m/n/f) and their reasoning</li>
+                    <li><strong>Use pronunciation guides</strong> to improve your speaking</li>
+                    <li><strong>Practice regularly</strong> for best results</li>
+                </ul>
+            </div>
+
+            <div class="instruction-section">
+                <h3><i class="fas fa-mobile-alt"></i> Mobile Features</h3>
+                <ul>
+                    <li><strong>Swipe gestures:</strong> Swipe left for next, right for previous</li>
+                    <li><strong>Touch to flip:</strong> Tap anywhere on the card</li>
+                    <li><strong>Responsive design:</strong> Optimized for all screen sizes</li>
+                </ul>
+            </div>
+
+            <div class="instruction-section">
+                <h3><i class="fas fa-keyboard"></i> Keyboard Shortcuts</h3>
+                <div class="shortcuts-grid">
+                    <div class="shortcut">
+                        <kbd>←</kbd>
+                        <span>Previous card</span>
+                    </div>
+                    <div class="shortcut">
+                        <kbd>→</kbd>
+                        <span>Next card</span>
+                    </div>
+                    <div class="shortcut">
+                        <kbd>Space</kbd>
+                        <span>Flip card</span>
+                    </div>
+                    <div class="shortcut">
+                        <kbd>Enter</kbd>
+                        <span>Flip card</span>
+                    </div>
+                    <div class="shortcut">
+                        <kbd>Esc</kbd>
+                        <span>Close menu/Reset card</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Legend Page (Hidden by default) -->
+    <div class="page legend-page" id="legendPage">
+        <div class="page-content">
+            <button class="back-btn" data-page="flashcards">
+                <i class="fas fa-arrow-left"></i>
+                <span>Back to Flash Cards</span>
+            </button>
+            <h2><i class="fas fa-bookmark"></i> Legend & Reference</h2>
+            
+            <div class="legend-section">
+                <h3><i class="fas fa-palette"></i> Gender Colors</h3>
+                <p>Each German noun has a gender indicated by different colored badges:</p>
+                <div class="gender-legend">
+                    <div class="gender-item">
+                        <span class="gender gender-masculine">m</span>
+                        <div class="gender-explanation">
+                            <strong>Maskulin (der)</strong>
+                            <span>der Hund, der Mann, der Tisch</span>
+                        </div>
+                    </div>
+                    <div class="gender-item">
+                        <span class="gender gender-neuter">n</span>
+                        <div class="gender-explanation">
+                            <strong>Neutrum (das)</strong>
+                            <span>das Haus, das Kind, das Buch</span>
+                        </div>
+                    </div>
+                    <div class="gender-item">
+                        <span class="gender gender-feminine">f</span>
+                        <div class="gender-explanation">
+                            <strong>Feminin (die)</strong>
+                            <span>die Katze, die Frau, die Lampe</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="legend-section">
+                <h3><i class="fas fa-font"></i> Abbreviations</h3>
+                <div class="abbr-grid">
+                    <div class="abbr-item">
+                        <strong>m</strong>
+                        <span>maskulin gender (der)</span>
+                    </div>
+                    <div class="abbr-item">
+                        <strong>n</strong>
+                        <span>neutrum gender (das)</span>
+                    </div>
+                    <div class="abbr-item">
+                        <strong>f</strong>
+                        <span>feminin gender (die)</span>
+                    </div>
+                    <div class="abbr-item">
+                        <strong>IPA</strong>
+                        <span>International Phonetic Alphabet</span>
+                    </div>
+                    <div class="abbr-item">
+                        <strong>[...]</strong>
+                        <span>pronunciation guide</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="legend-section">
+                <h3><i class="fas fa-lightbulb"></i> Gender Rules</h3>
+                <div class="rules-grid">
+                    <div class="rule-card">
+                        <h4>Maskulin (der)</h4>
+                        <ul>
+                            <li>Male persons and animals</li>
+                            <li>Days, months, seasons</li>
+                            <li>Many tools and furniture</li>
+                            <li>Words ending in -er, -ismus</li>
+                        </ul>
+                    </div>
+                    <div class="rule-card">
+                        <h4>Feminin (die)</h4>
+                        <ul>
+                            <li>Female persons and animals</li>
+                            <li>Most words ending in -e</li>
+                            <li>Words ending in -ung, -heit, -keit</li>
+                            <li>Many flowers and trees</li>
+                        </ul>
+                    </div>
+                    <div class="rule-card">
+                        <h4>Neutrum (das)</h4>
+                        <ul>
+                            <li>Young persons and animals</li>
+                            <li>Most metals and chemicals</li>
+                            <li>Words ending in -chen, -lein</li>
+                            <li>Infinitives used as nouns</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="legend-section">
+                <h3><i class="fas fa-question-circle"></i> Common Patterns</h3>
+                <div class="pattern-list">
+                    <div class="pattern-item">
+                        <strong>Words ending in -e:</strong> Usually feminin (die Schule, die Lampe)
+                    </div>
+                    <div class="pattern-item">
+                        <strong>Compound words:</strong> Take the gender of the last word
+                    </div>
+                    <div class="pattern-item">
+                        <strong>Borrowed words:</strong> Often neutrum (das Auto, das Hotel)
+                    </div>
+                    <div class="pattern-item">
+                        <strong>When in doubt:</strong> Learn each word with its article
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Maskulin Gender Page -->
+    <div class="page gender-page" id="maskulinPage">
+        <div class="page-content">
+            <button class="back-btn" data-page="flashcards">
+                <i class="fas fa-arrow-left"></i>
+                <span>Back to Flash Cards</span>
+            </button>
+            <h2><i class="fas fa-mars" style="color: #3b82f6;"></i> Maskulin (der)</h2>
+            
+            <div class="gender-intro">
+                <p>Maskulin nouns use the definite article <strong>der</strong> and are typically associated with male persons, but many inanimate objects are also maskulin. Here are the comprehensive rules and patterns:</p>
+            </div>
+
+            <div class="rule-section">
+                <h3><i class="fas fa-user"></i> People & Living Beings</h3>
+                <div class="rule-grid">
+                    <div class="rule-item">
+                        <h4>Male Persons</h4>
+                        <ul>
+                            <li>der Mann (man)</li>
+                            <li>der Vater (father)</li>
+                            <li>der Sohn (son)</li>
+                            <li>der Bruder (brother)</li>
+                        </ul>
+                    </div>
+                    <div class="rule-item">
+                        <h4>Male Animals</h4>
+                        <ul>
+                            <li>der Hund (dog)</li>
+                            <li>der Löwe (lion)</li>
+                            <li>der Hahn (rooster)</li>
+                            <li>der Bulle (bull)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="rule-section">
+                <h3><i class="fas fa-calendar"></i> Time & Natural Phenomena</h3>
+                <div class="rule-grid">
+                    <div class="rule-item">
+                        <h4>Days & Months</h4>
+                        <ul>
+                            <li>der Montag (Monday)</li>
+                            <li>der Januar (January)</li>
+                            <li>der Frühling (spring)</li>
+                            <li>der Sommer (summer)</li>
+                        </ul>
+                    </div>
+                    <div class="rule-item">
+                        <h4>Weather</h4>
+                        <ul>
+                            <li>der Regen (rain)</li>
+                            <li>der Schnee (snow)</li>
+                            <li>der Wind (wind)</li>
+                            <li>der Sturm (storm)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="rule-section">
+                <h3><i class="fas fa-font"></i> Word Endings</h3>
+                <div class="ending-grid">
+                    <div class="ending-item">
+                        <h4>-er</h4>
+                        <p>der Lehrer, der Computer, der Finger</p>
+                    </div>
+                    <div class="ending-item">
+                        <h4>-ismus</h4>
+                        <p>der Kapitalismus, der Tourismus</p>
+                    </div>
+                    <div class="ending-item">
+                        <h4>-ant</h4>
+                        <p>der Elefant, der Diamant</p>
+                    </div>
+                    <div class="ending-item">
+                        <h4>-ent</h4>
+                        <p>der Student, der Präsident</p>
+                    </div>
+                    <div class="ending-item">
+                        <h4>-ist</h4>
+                        <p>der Artist, der Journalist</p>
+                    </div>
+                    <div class="ending-item">
+                        <h4>-or</h4>
+                        <p>der Motor, der Doktor</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="rule-section">
+                <h3><i class="fas fa-tools"></i> Objects & Categories</h3>
+                <div class="rule-grid">
+                    <div class="rule-item">
+                        <h4>Alcoholic Drinks</h4>
+                        <ul>
+                            <li>der Wein (wine)</li>
+                            <li>der Whisky (whisky)</li>
+                            <li>der Rum (rum)</li>
+                            <li>der Cognac (cognac)</li>
+                        </ul>
+                    </div>
+                    <div class="rule-item">
+                        <h4>Car Brands</h4>
+                        <ul>
+                            <li>der BMW</li>
+                            <li>der Mercedes</li>
+                            <li>der Volkswagen</li>
+                            <li>der Porsche</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="exception-section">
+                <h3><i class="fas fa-exclamation-triangle"></i> Common Exceptions</h3>
+                <div class="exception-grid">
+                    <div class="exception-item">
+                        <h4>Male but not Maskulin</h4>
+                        <ul>
+                            <li>das Kind (child) - neutrum</li>
+                            <li>das Baby (baby) - neutrum</li>
+                            <li>das Mädchen (girl) - neutrum</li>
+                        </ul>
+                    </div>
+                    <div class="exception-item">
+                        <h4>-er Exceptions</h4>
+                        <ul>
+                            <li>die Mutter (mother) - feminin</li>
+                            <li>die Schwester (sister) - feminin</li>
+                            <li>das Wasser (water) - neutrum</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feminin Gender Page -->
+    <div class="page gender-page" id="femininPage">
+        <div class="page-content">
+            <button class="back-btn" data-page="flashcards">
+                <i class="fas fa-arrow-left"></i>
+                <span>Back to Flash Cards</span>
+            </button>
+            <h2><i class="fas fa-venus" style="color: #ec4899;"></i> Feminin (die)</h2>
+            
+            <div class="gender-intro">
+                <p>Feminin nouns use the definite article <strong>die</strong> and include female persons, but many inanimate objects are also feminin. Here are the comprehensive rules:</p>
+            </div>
+
+            <div class="rule-section">
+                <h3><i class="fas fa-user-friends"></i> People & Living Beings</h3>
+                <div class="rule-grid">
+                    <div class="rule-item">
+                        <h4>Female Persons</h4>
+                        <ul>
+                            <li>die Frau (woman)</li>
+                            <li>die Mutter (mother)</li>
+                            <li>die Tochter (daughter)</li>
+                            <li>die Schwester (sister)</li>
+                        </ul>
+                    </div>
+                    <div class="rule-item">
+                        <h4>Female Animals</h4>
+                        <ul>
+                            <li>die Katze (cat)</li>
+                            <li>die Kuh (cow)</li>
+                            <li>die Henne (hen)</li>
+                            <li>die Stute (mare)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="rule-section">
+                <h3><i class="fas fa-font"></i> Word Endings (Most Reliable)</h3>
+                <div class="ending-grid">
+                    <div class="ending-item">
+                        <h4>-e (80% rule)</h4>
+                        <p>die Schule, die Lampe, die Blume</p>
+                    </div>
+                    <div class="ending-item">
+                        <h4>-ung</h4>
+                        <p>die Zeitung, die Wohnung, die Übung</p>
+                    </div>
+                    <div class="ending-item">
+                        <h4>-heit</h4>
+                        <p>die Gesundheit, die Freiheit</p>
+                    </div>
+                    <div class="ending-item">
+                        <h4>-keit</h4>
+                        <p>die Möglichkeit, die Schwierigkeit</p>
+                    </div>
+                    <div class="ending-item">
+                        <h4>-schaft</h4>
+                        <p>die Freundschaft, die Gesellschaft</p>
+                    </div>
+                    <div class="ending-item">
+                        <h4>-ion</h4>
+                        <p>die Nation, die Religion, die Station</p>
+                    </div>
+                    <div class="ending-item">
+                        <h4>-tät</h4>
+                        <p>die Universität, die Qualität</p>
+                    </div>
+                    <div class="ending-item">
+                        <h4>-ur</h4>
+                        <p>die Natur, die Kultur, die Frisur</p>
+                    </div>
+                    <div class="ending-item">
+                        <h4>-in (female professions)</h4>
+                        <p>die Lehrerin, die Ärztin, die Köchin</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="rule-section">
+                <h3><i class="fas fa-seedling"></i> Nature & Objects</h3>
+                <div class="rule-grid">
+                    <div class="rule-item">
+                        <h4>Trees & Flowers</h4>
+                        <ul>
+                            <li>die Eiche (oak)</li>
+                            <li>die Tanne (fir)</li>
+                            <li>die Rose (rose)</li>
+                            <li>die Tulpe (tulip)</li>
+                        </ul>
+                    </div>
+                    <div class="rule-item">
+                        <h4>Numbers</h4>
+                        <ul>
+                            <li>die Eins (one)</li>
+                            <li>die Zwei (two)</li>
+                            <li>die Million (million)</li>
+                            <li>die Milliarde (billion)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="exception-section">
+                <h3><i class="fas fa-exclamation-triangle"></i> Major Exceptions</h3>
+                <div class="exception-grid">
+                    <div class="exception-item">
+                        <h4>-e Exceptions (Maskulin)</h4>
+                        <ul>
+                            <li>der Name (name)</li>
+                            <li>der Käse (cheese)</li>
+                            <li>der Junge (boy)</li>
+                            <li>der Hase (rabbit)</li>
+                        </ul>
+                    </div>
+                    <div class="exception-item">
+                        <h4>-e Exceptions (Neutrum)</h4>
+                        <ul>
+                            <li>das Ende (end)</li>
+                            <li>das Auge (eye)</li>
+                            <li>das Interesse (interest)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Neutrum Gender Page -->
+    <div class="page gender-page" id="neutrumPage">
+        <div class="page-content">
+            <button class="back-btn" data-page="flashcards">
+                <i class="fas fa-arrow-left"></i>
+                <span>Back to Flash Cards</span>
+            </button>
+            <h2><i class="fas fa-genderless" style="color: #10b981;"></i> Neutrum (das)</h2>
+            
+            <div class="gender-intro">
+                <p>Neutrum nouns use the definite article <strong>das</strong> and often represent young beings, concepts, and many borrowed words. Here are the comprehensive rules:</p>
+            </div>
+
+            <div class="rule-section">
+                <h3><i class="fas fa-baby"></i> Young Beings & Diminutives</h3>
+                <div class="rule-grid">
+                    <div class="rule-item">
+                        <h4>Young People & Animals</h4>
+                        <ul>
+                            <li>das Kind (child)</li>
+                            <li>das Baby (baby)</li>
+                            <li>das Kalb (calf)</li>
+                            <li>das Lamm (lamb)</li>
+                        </ul>
+                    </div>
+                    <div class="rule-item">
+                        <h4>Diminutives</h4>
+                        <ul>
+                            <li>das Mädchen (girl)</li>
+                            <li>das Häuschen (little house)</li>
+                            <li>das Kätzchen (kitten)</li>
+                            <li>das Büchlein (little book)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="rule-section">
+                <h3><i class="fas fa-font"></i> Word Endings</h3>
+                <div class="ending-grid">
+                    <div class="ending-item">
+                        <h4>-chen</h4>
+                        <p>das Mädchen, das Häuschen</p>
+                    </div>
+                    <div class="ending-item">
+                        <h4>-lein</h4>
+                        <p>das Büchlein, das Fräulein</p>
+                    </div>
+                    <div class="ending-item">
+                        <h4>-ment</h4>
+                        <p>das Element, das Dokument</p>
+                    </div>
+                    <div class="ending-item">
+                        <h4>-um</h4>
+                        <p>das Museum, das Zentrum</p>
+                    </div>
+                    <div class="ending-item">
+                        <h4>-tum</h4>
+                        <p>das Eigentum, das Christentum</p>
+                    </div>
+                    <div class="ending-item">
+                        <h4>-nis</h4>
+                        <p>das Ergebnis, das Geheimnis</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="rule-section">
+                <h3><i class="fas fa-globe"></i> Categories & Concepts</h3>
+                <div class="rule-grid">
+                    <div class="rule-item">
+                        <h4>Metals & Elements</h4>
+                        <ul>
+                            <li>das Gold (gold)</li>
+                            <li>das Silber (silver)</li>
+                            <li>das Eisen (iron)</li>
+                            <li>das Aluminium (aluminum)</li>
+                        </ul>
+                    </div>
+                    <div class="rule-item">
+                        <h4>Colors as Nouns</h4>
+                        <ul>
+                            <li>das Rot (red)</li>
+                            <li>das Blau (blue)</li>
+                            <li>das Grün (green)</li>
+                            <li>das Gelb (yellow)</li>
+                        </ul>
+                    </div>
+                    <div class="rule-item">
+                        <h4>Languages</h4>
+                        <ul>
+                            <li>das Deutsch (German)</li>
+                            <li>das Englisch (English)</li>
+                            <li>das Französisch (French)</li>
+                            <li>das Spanisch (Spanish)</li>
+                        </ul>
+                    </div>
+                    <div class="rule-item">
+                        <h4>Infinitives as Nouns</h4>
+                        <ul>
+                            <li>das Lesen (reading)</li>
+                            <li>das Schreiben (writing)</li>
+                            <li>das Schwimmen (swimming)</li>
+                            <li>das Lernen (learning)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="rule-section">
+                <h3><i class="fas fa-car"></i> Borrowed Words & Modern Terms</h3>
+                <div class="rule-grid">
+                    <div class="rule-item">
+                        <h4>English Borrowings</h4>
+                        <ul>
+                            <li>das Auto (car)</li>
+                            <li>das Hotel (hotel)</li>
+                            <li>das Internet (internet)</li>
+                            <li>das Email (email)</li>
+                        </ul>
+                    </div>
+                    <div class="rule-item">
+                        <h4>Scientific Terms</h4>
+                        <ul>
+                            <li>das Vitamin (vitamin)</li>
+                            <li>das Protein (protein)</li>
+                            <li>das Antibiotikum (antibiotic)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="exception-section">
+                <h3><i class="fas fa-exclamation-triangle"></i> Notable Exceptions</h3>
+                <div class="exception-grid">
+                    <div class="exception-item">
+                        <h4>-nis Exceptions (Feminin)</h4>
+                        <ul>
+                            <li>die Kenntnis (knowledge)</li>
+                            <li>die Erlaubnis (permission)</li>
+                            <li>die Finsternis (darkness)</li>
+                        </ul>
+                    </div>
+                    <div class="exception-item">
+                        <h4>Young Animals (Other Genders)</h4>
+                        <ul>
+                            <li>der Welpe (puppy) - maskulin</li>
+                            <li>die Raupe (caterpillar) - feminin</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tip-section">
+                <h3><i class="fas fa-lightbulb"></i> Memory Tips</h3>
+                <div class="tip-grid">
+                    <div class="tip-item">
+                        <h4>Compound Words</h4>
+                        <p>The gender is determined by the <strong>last word</strong>:<br>
+                        das Haus + die Tür = die Haustür (feminin)</p>
+                    </div>
+                    <div class="tip-item">
+                        <h4>When in Doubt</h4>
+                        <p>If unsure, neutrum is often a safe guess for:<br>
+                        • New technology terms<br>
+                        • Abstract concepts<br>
+                        • Foreign borrowings</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Page (Hidden by default) -->
+    <div class="page about-page" id="aboutPage">
+        <div class="page-content">
+            <button class="back-btn" data-page="flashcards">
+                <i class="fas fa-arrow-left"></i>
+                <span>Back to Flash Cards</span>
+            </button>
+            <h2><i class="fas fa-heart"></i> German Flash Cards</h2>
+            
+            <div class="about-section">
+                <p>This application was designed to help students learn German vocabulary effectively through interactive flash cards. Master the challenging German articles (der, das, die) and build your vocabulary with confidence.</p>
+                
+                <h3><i class="fas fa-star"></i> Features</h3>
+                <ul>
+                    <li>Carefully selected German vocabulary words</li>
+                    <li>IPA pronunciation guides for accurate pronunciation</li>
+                    <li>Gender explanations to understand der/das/die rules</li>
+                    <li>Dual learning modes for comprehensive practice</li>
+                    <li>Mobile-friendly design for learning on-the-go</li>
+                </ul>
+
+                <h3><i class="fas fa-code"></i> Technology</h3>
+                <p>Built with pure HTML, CSS, and JavaScript - no frameworks needed. Designed with modern web standards for optimal performance and accessibility.</p>
+
+                <div class="credits">
+                    <p><strong>Viel Erfolg beim Deutschlernen!</strong> 🇩🇪</p>
+                    <p><em>Good luck learning German!</em></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="flashcards-data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 
