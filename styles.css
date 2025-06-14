@@ -284,6 +284,11 @@ body {
     animation: pulse 2s infinite;
 }
 
+/* Hide card hint on the back of the card */
+.flashcard-back .card-hint {
+    display: none;
+}
+
 @keyframes pulse {
     0%, 100% { opacity: 0.6; }
     50% { opacity: 1; }
